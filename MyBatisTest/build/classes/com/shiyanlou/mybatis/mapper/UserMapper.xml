@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shiyanlou.mybatis.mapper.UserMapper">
+    <!-- ???????? -->
+    <resultMap id="userMap" type="User">
+        <id property="id" column="id" javaType="int"></id>
+        <result property="username" column="username" javaType="String"></result>
+        <result property="password" column="password" javaType="String"></result>
+        <result property="sex" column="sex" javaType="String"></result>
+        <result property="address" column="address" javaType="String"></result>
+    </resultMap>
+
+    <!-- ?? SQL ????? id ???????????? -->
+    <!-- useGeneratedKeys????????? -->
+    <!-- keyProperty? ???????? -->
+    <!-- parameterType ?????????????resultType ???????????? -->
+    <insert id="insertUser" useGeneratedKeys="true" keyProperty="id">
+        insert into user (username,password,sex,address) values
+        (#{username},#{password},#{sex},#{address})
+    </insert>
+
+    <update id="updateUser"  parameterType="User">
+        update user set
+        address=#{address} where
+        id=#{id}
+    </update>
+
+    <delete id="deleteUser" parameterType="int">
+        delete from user where
+        id=#{id}
+    </delete>
+
+    <!-- ??? Java Bean ?????resultType="com.shiyanlou.mybatis.model.User" -->
+
+    <!-- ??resultType????????????????????????????resultMap -->
+    <select id="selectUserById" parameterType="int" resultType="User">
+        select * from user where id=#{id}
+    </select>
+
+    <select id="selectAllUser" resultMap="userMap">
+        select * from user
+    </select>
+
+</mapper>
