@@ -16,10 +16,10 @@ public class UserTest {
     private static SqlSessionFactory sqlSessionFactory;
 
     public static void main(String[] args) {
-        // Mybatis ????
+        // Mybatis 配置文件
         String resource = "mybatis.cfg.xml";
 
-        // ???????
+        // 得到配置文件流
         InputStream inputStream = null;
         try {
             inputStream = Resources.getResourceAsStream(resource);
@@ -27,20 +27,20 @@ public class UserTest {
             e.printStackTrace();
         }
 
-        // ????????? MyBatis ???????
+        // 创建会话工厂，传入 MyBatis 的配置文件信息
         sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
 
-//         insertUser();
-//         updateUser();
-//         deleteUser();
-//         selectUserById();
-         selectAllUser();
+        // insertUser();
+        // updateUser();
+        // deleteUser();
+        // selectUserById();
+        selectAllUser();
 
     }
 
-    // ????
+    // 新增用戶
     private static void insertUser() {
-        // ?????? SqlSession
+        // 通过工厂得到 SqlSession
         SqlSession session = sqlSessionFactory.openSession();
 
         UserMapper mapper = session.getMapper(UserMapper.class);
@@ -58,11 +58,11 @@ public class UserTest {
             session.rollback();
         }
 
-        // ????
+        // 释放资源
         session.close();
     }
 
-    // ????
+    // 更新用戶
     private static void updateUser() {
 
         SqlSession session = sqlSessionFactory.openSession();
@@ -86,7 +86,7 @@ public class UserTest {
         session.close();
     }
 
-    // ????
+    // 删除用戶
     private static void deleteUser() {
 
         SqlSession session = sqlSessionFactory.openSession();
@@ -103,7 +103,7 @@ public class UserTest {
         session.close();
     }
 
-    // ??id??????
+    // 根据id查询用户信息
     private static void selectUserById() {
 
         SqlSession session = sqlSessionFactory.openSession();
@@ -123,7 +123,7 @@ public class UserTest {
         session.close();
     }
 
-    // ?????????
+    // 查询所有的用户信息
     private static void selectAllUser() {
 
         SqlSession session = sqlSessionFactory.openSession();
