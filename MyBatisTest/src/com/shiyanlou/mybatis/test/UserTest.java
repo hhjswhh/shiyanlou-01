@@ -9,8 +9,10 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
+import com.shiyanlou.mybatis.mapper.MathMapper;
 import com.shiyanlou.mybatis.mapper.UserMapper;
 import com.shiyanlou.mybatis.model.User;
+import com.shiyanlou.mybatis.model.Math;
 
 public class UserTest {
     private static SqlSessionFactory sqlSessionFactory;
@@ -34,7 +36,13 @@ public class UserTest {
         // updateUser();
         // deleteUser();
         // selectUserById();
-        selectAllUser();
+        // selectAllUser();
+        
+//        insertMath();
+//        updateMath();
+//        deleteMath();
+//        selectMathByUsername();
+        selectAllMath();
 
     }
 
@@ -136,6 +144,102 @@ public class UserTest {
                 System.out.println(user.getId() + " " + user.getUsername() + " "
                         + user.getPassword() + " " + user.getSex() + " "
                         + user.getAddress());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.rollback();
+        }
+
+        session.close();
+    }
+    
+    private static void insertMath(){
+    	SqlSession session = sqlSessionFactory.openSession();
+    	
+    	MathMapper mapper = session.getMapper(MathMapper.class);
+    	
+    	Math math = new Math();
+    	math.setUsername("Tom");
+    	math.setGrade(60);
+    	
+    	try {
+			mapper.insertMath(math);
+			
+			session.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.rollback();
+		}
+    	
+    	session.close();
+    }
+    
+    private static void updateMath() {
+
+        SqlSession session = sqlSessionFactory.openSession();
+
+        MathMapper mapper = session.getMapper(MathMapper.class);
+        Math math = null;
+        try {
+            math = mapper.selectMathByUsername("Tom");
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
+        math.setGrade(70);
+        try {
+            mapper.updateMath(math);
+            session.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.rollback();
+        }
+
+        session.close();
+    }
+    
+    private static void deleteMath() {
+
+        SqlSession session = sqlSessionFactory.openSession();
+
+        MathMapper mapper = session.getMapper(MathMapper.class);
+        try {
+            mapper.deleteMath("Tom");
+            session.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.rollback();
+        }
+
+        session.close();
+    }
+    
+    private static void selectMathByUsername() {
+
+        SqlSession session = sqlSessionFactory.openSession();
+
+        MathMapper mapper = session.getMapper(MathMapper.class);
+        try {
+            Math math = mapper.selectMathByUsername("Tom");
+            session.commit();
+            System.out.println(math.getUsername()+" "+math.getGrade());
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.rollback();
+        }
+
+        session.close();
+    }
+    
+    private static void selectAllMath() {
+
+        SqlSession session = sqlSessionFactory.openSession();
+
+        MathMapper mapper = session.getMapper(MathMapper.class);
+        try {
+            List<Math> mathList = mapper.selectAllMath();
+            session.commit();
+            for (Math math : mathList) {
+                System.out.println(math.getUsername()+" "+math.getGrade());
             }
         } catch (Exception e) {
             e.printStackTrace();

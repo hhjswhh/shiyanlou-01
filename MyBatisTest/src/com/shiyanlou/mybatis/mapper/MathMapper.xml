@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shiyanlou.mybatis.mapper.MathMapper">
+    <!-- 自定义返回结果集 -->
+    <resultMap id="mathMap" type="Math">
+        <id property="username" column="username" javaType="string"></id>
+        <result property="grade" column="grade" javaType="int"></result>
+    </resultMap>
+
+    <!-- 定义 SQL 语句，其中 id 需要和接口中的方法名一致 -->
+    <!-- keyProperty： 唯一标记一个属性 -->
+    <!-- parameterType 指明查询时使用的参数类型，resultType 指明查询返回的结果集类型 -->
+    <insert id="insertMath" parameterType="Math">
+        insert into math (username,grade) values
+        (#{username},#{grade})
+    </insert>
+
+    <update id="updateMath"  parameterType="Math">
+        update math set
+        grade=#{grade} where
+        username=#{username}
+    </update>
+
+    <delete id="deleteMath" parameterType="string">
+        delete from math where
+        username=#{username}
+    </delete>
+
+    <!-- 如未为 Java Bean 起类别名，resultType="com.shiyanlou.mybatis.model.User" -->
+
+    <!-- 使用resultType时，一定要保证，你属性名与字段名相同；如果不相同，就使用resultMap -->
+    <select id="selectMathByUsername" parameterType="string" resultType="Math">
+        select * from math where username=#{username}
+    </select>
+
+    <select id="selectAllMath" resultMap="mathMap">
+        select * from math
+    </select>
+
+</mapper>

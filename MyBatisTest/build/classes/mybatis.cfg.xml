@@ -33,9 +33,9 @@
 
 	<mappers>
 		<!-- 通过 mapper 接口包加载整个包的映射文件 -->
-		<!-- <package name="com/shiyanlou/mybatis/mapper" /> -->
+		<package name="com/shiyanlou/mybatis/mapper" />
 		
-		<mapper resource="com/shiyanlou/mybatis/mapper/UserMapper.xml"/>
+		<!-- <mapper resource="com/shiyanlou/mybatis/mapper/UserMapper.xml"/> -->
 	</mappers>
 
 </configuration>
