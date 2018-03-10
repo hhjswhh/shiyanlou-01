@@ -43,6 +43,31 @@ INSERT INTO `user` VALUES (4,'Tom','123456','male','chengdu');
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
+
+--
+-- Table structure for table `math`
+--
+
+DROP TABLE IF EXISTS `math`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `math` (
+  `username` varchar(20) NOT NULL,
+  `grade` int(11) DEFAULT NULL,
+  PRIMARY KEY (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `math`
+--
+
+LOCK TABLES `math` WRITE;
+/*!40000 ALTER TABLE `math` DISABLE KEYS */;
+/*!40000 ALTER TABLE `math` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
